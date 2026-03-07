@@ -1,0 +1,8 @@
+[user]
+	email = justin@soestin.nl
+	name = Justin
+	signingkey = /home/justin/.ssh/id_ed25519_sk.pub
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
