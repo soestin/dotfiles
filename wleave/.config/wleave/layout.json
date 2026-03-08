@@ -16,7 +16,7 @@
         },
         {
             "label": "logout",
-            "action": "loginctl terminate-user $USER",
+            "action": "hyprctl dispatch exit",
             "text": "Logout",
             "keybind": "e",
             "icon": "/usr/share/wleave/icons/logout.svg"
