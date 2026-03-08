@@ -15,6 +15,7 @@
 		"pulseaudio",
 		"memory",
 		"cpu",
+		"backlight",
 		"battery",
 		"disk",
 		"tray",
@@ -94,6 +95,12 @@
 	"cpu": {
 		"interval": 5,
 		"format": "CPU {usage:2}%"
+	},
+
+	"backlight": {
+		"format": "{icon} {percent}%",
+		"format-icons": ["󰃞", "󰃟", "󰃠"],
+		"scroll-step": 5
 	},
 
 	"battery": {

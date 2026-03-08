@@ -15,7 +15,14 @@ ask() {
 if ask "Install required packages?"; then
     sudo pacman -S --needed \
         stow \
-        cachyos-zsh-config \
+        zsh \
+        oh-my-zsh-git \
+        zsh-theme-powerlevel10k \
+        zsh-syntax-highlighting \
+        zsh-autosuggestions \
+        zsh-history-substring-search \
+        pkgfile \
+        fzf \
         networkmanager-dmenu \
         grim \
         slurp \

@@ -29,6 +29,7 @@ window#waybar {
 #pulseaudio,
 #memory,
 #cpu,
+#backlight,
 #battery,
 #disk,
 #tray,
@@ -67,6 +68,7 @@ window#waybar {
 #pulseaudio { color: #268bd2; }
 #memory { color: #2aa198; }
 #cpu { color: #6c71c4; }
+#backlight { color: #cb4b16; }
 #battery { color: #859900; }
 #battery.critical:not(.charging) { color: #dc322f; }
 #disk { color: #b58900; }
