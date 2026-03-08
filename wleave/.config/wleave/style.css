@@ -1,16 +1,10 @@
-/**
- * See https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/css-variables.html for more CSS variables.
- * Or use your own colors. Both work, but using your own colors may break the automatic light/dark theme function.
- */
-
-
 window {
     background-color: rgba(12, 12, 12, 0.8);
 }
 
 button {
-    color: oklab(from var(--view-fg-color) var(--standalone-color-oklab));
-    background-color: var(--view-bg-color);
+    color: var(--view-fg-color, #ececec);
+    background-color: #1d1d1d;
     border: none;
     padding: 10px;
 }
@@ -30,12 +24,12 @@ button:hover label.keybind, button:focus label.keybind {
 
 button:focus,
 button:hover {
-    background-color: color-mix(in srgb, var(--accent-bg-color), var(--view-bg-color));
+    background-color: #2c2c2c;
 }
 
 button:active {
-    color: var(--accent-fg-color);
-    background-color: var(--accent-bg-color);
+    color: #101010;
+    background-color: #8cb4ff;
 }
 
 button#shutdown {
