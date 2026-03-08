@@ -22,6 +22,7 @@ The script will:
 1. Install required packages via pacman/yay
 2. Set Zsh as the default shell
 3. Stow all dotfiles (creates symlinks into `~`)
+4. Optionally install and configure `SilentSDDM`
 
 Log out and back in after for the shell change to take effect.
 
@@ -29,7 +30,7 @@ Log out and back in after for the shell change to take effect.
 
 | Package | Contents |
 |---|---|
-| `home` | `.zshrc`, `.gitconfig` |
+| `home` | `.zshrc`, `.p10k.zsh`, `.gitconfig`, GTK dark-mode defaults |
 | `hypr` | Hyprland, Hyprlock, Hyprpaper, Hypridle, scripts, wallpapers |
 | `waybar` | Bar config and style |
 | `wofi` | Launcher style |
@@ -37,6 +38,24 @@ Log out and back in after for the shell change to take effect.
 | `fish` | Fish shell config |
 | `fastfetch` | System info config |
 | `networkmanager-dmenu` | Network manager config |
+
+## SilentSDDM
+
+`install.sh` can optionally install the [SilentSDDM](https://github.com/uiriansan/SilentSDDM) theme.
+
+It will:
+1. Install SDDM dependencies (`sddm`, `qt6-svg`, `qt6-virtualkeyboard`, `qt6-multimedia-ffmpeg`)
+2. Install the theme from AUR (`sddm-silent-theme`, fallback `sddm-silent-theme-git`)
+3. Fallback to git clone + copy if `yay` is unavailable
+4. Configure:
+   - `/etc/sddm.conf.d/10-theme.conf` with `Current=silent`
+   - `/etc/sddm.conf.d/20-silent.conf` with required `InputMethod` and `GreeterEnvironment`
+
+Test command:
+
+```bash
+QT_QUICK_BACKEND=software sddm-greeter-qt6 --test-mode --theme /usr/share/sddm/themes/silent
+```
 
 ## Keybinds
 
