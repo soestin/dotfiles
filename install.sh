@@ -1,5 +1,6 @@
 #!/bin/bash
 # Usage: ./install.sh [--yes|-y]
+set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 AUTO=false
@@ -108,8 +109,12 @@ if ask "Install required packages?"; then
         brightnessctl \
         playerctl \
         pavucontrol \
+        wireplumber \
+        networkmanager \
         network-manager-applet \
         libnotify \
+        fish \
+        fastfetch \
         zsh \
         oh-my-zsh-git \
         zsh-theme-powerlevel10k \
@@ -125,7 +130,10 @@ if ask "Install required packages?"; then
         jq
 
     # AUR packages
-    ensure_yay
+    if ! ensure_yay; then
+        echo "Failed to install yay; cannot continue with AUR package installation." >&2
+        exit 1
+    fi
     yay -S --needed \
         wleave
 fi
