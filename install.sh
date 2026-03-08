@@ -4,11 +4,13 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 AUTO=false
-[[ "$1" == "--yes" || "$1" == "-y" ]] && AUTO=true
+# Use parameter expansion to avoid 'unbound variable' error
+[[ "${1:-}" == "--yes" || "${1:-}" == "-y" ]] && AUTO=true
 
 ask() {
     $AUTO && return 0
-    read -rp "$1 [y/N] " ans
+    # Use || true to prevent set -e from killing the script if read fails or is interrupted
+    read -rp "$1 [y/N] " ans || return 1
     [[ "$ans" =~ ^[Yy]$ ]]
 }
 
