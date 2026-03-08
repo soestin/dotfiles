@@ -20,7 +20,8 @@ if ask "Install required packages?"; then
         grim \
         slurp \
         satty \
-        jq
+        jq \
+        hypridle
 
     # AUR packages
     yay -S --needed \
