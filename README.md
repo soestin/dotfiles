@@ -22,7 +22,7 @@ The script will:
 1. Install required packages via pacman/yay
 2. Set Zsh as the default shell
 3. Stow all dotfiles (creates symlinks into `~`)
-4. Optionally install and configure `SilentSDDM`
+4. Optionally install and configure `SilentSDDM` theme
 
 Log out and back in after for the shell change to take effect.
 
@@ -44,12 +44,12 @@ Log out and back in after for the shell change to take effect.
 `install.sh` can optionally install the [SilentSDDM](https://github.com/uiriansan/SilentSDDM) theme.
 
 It will:
-1. Install SDDM dependencies (`sddm`, `qt6-svg`, `qt6-virtualkeyboard`, `qt6-multimedia-ffmpeg`)
+1. Ensure `yay` is installed (installs it with `pacman` if missing)
 2. Install the theme from AUR (`sddm-silent-theme`, fallback `sddm-silent-theme-git`)
-3. Fallback to git clone + copy if `yay` is unavailable
-4. Configure:
-   - `/etc/sddm.conf.d/10-theme.conf` with `Current=silent`
-   - `/etc/sddm.conf.d/20-silent.conf` with required `InputMethod` and `GreeterEnvironment`
+3. Update `/etc/sddm.conf` with:
+   - `[General] InputMethod=qtvirtualkeyboard`
+   - `[General] GreeterEnvironment=QML2_IMPORT_PATH=/usr/share/sddm/themes/silent/components/,QT_IM_MODULE=qtvirtualkeyboard`
+   - `[Theme] Current=silent`
 
 Test command:
 
