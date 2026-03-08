@@ -13,11 +13,18 @@ ask() {
 
 # 1. Install packages
 if ask "Install required packages?"; then
-    yay -S --needed \
+    sudo pacman -S --needed \
         stow \
         cachyos-zsh-config \
-        wleave \
-        networkmanager-dmenu
+        networkmanager-dmenu \
+        grim \
+        slurp \
+        satty \
+        jq
+
+    # AUR packages
+    yay -S --needed \
+        wleave
 fi
 
 # 2. Set Zsh as default shell
