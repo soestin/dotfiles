@@ -44,9 +44,9 @@
 		"disable-scroll": true,
 		"format": "{icon}",
 		"format-icons": {
-			"active": "●",
-			"default": "○",
-			"empty": "○"
+			"active": "•",
+			"default": "·",
+			"empty": "·"
 		},
 		"persistent-workspaces": {
 			"*": 5
@@ -77,10 +77,15 @@
 	"pulseaudio": {
 		"format": "{icon} {volume:2}%",
 		"format-bluetooth": "{icon}  {volume}%",
-		"format-muted": "MUTE",
+		"format-muted": "󰝟 mute",
 		"format-icons": {
-			"headphones": "",
-			"default": ["", ""]
+			"headphones": "󰋋",
+			"hands-free": "󰋎",
+			"headset": "󰋎",
+			"phone": "󰏲",
+			"portable": "󰏲",
+			"car": "󰄋",
+			"default": ["󰕿", "󰖀", "󰕾"]
 		},
 		"scroll-step": 5,
 		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",

@@ -1,5 +1,13 @@
+@define-color bg #0d0d0d;
+@define-color bg_alt #151515;
+@define-color fg #fafafa;
+@define-color fg_dim #a0a0a0;
+@define-color fg_muted #666666;
+@define-color accent #f97316;
+@define-color border #2a2a2a;
+
 * {
-	font-size: 14px;
+	font-size: 13px;
 	font-family: "JetBrains Mono Nerd Font", monospace;
 	border: none;
 	border-radius: 0;
@@ -8,20 +16,18 @@
 
 window#waybar {
 	background: transparent;
-	color: #fdf6e3;
+	color: @fg;
 }
 
-/* Arrow separators — hidden in pill mode */
 #custom-right-arrow-dark,
 #custom-left-arrow-dark,
 #custom-right-arrow-light,
 #custom-left-arrow-light {
 	font-size: 0;
-	min-width: 3px;
+	min-width: 0;
 	background: transparent;
 }
 
-/* Base pill style */
 #workspaces,
 #clock.1,
 #clock.2,
@@ -36,96 +42,123 @@ window#waybar {
 #idle_inhibitor,
 #custom-notification,
 #custom-jpower {
-	background: #1a1a1a;
-	border-radius: 20px;
-	margin: 4px 2px;
-	padding: 0 12px;
+	background: alpha(@bg_alt, 0.95);
+	border: 1px solid @border;
+	border-radius: 0;
+	margin: 8px 4px 0;
+	padding: 0 14px;
+	min-height: 36px;
+	box-shadow: 0 0 0 1px transparent;
 }
 
-/* Workspaces */
 #workspaces {
-	padding: 0 8px;
+	padding: 0 6px;
 }
+
 #workspaces button {
 	padding: 0 6px;
-	color: #fdf6e3;
-	font-size: 21px;
+	margin: 5px 4px;
+	color: @fg_muted;
+	font-size: 22px;
 	font-weight: 700;
-	border-radius: 20px;
+	border-radius: 0;
 	background: transparent;
-	text-shadow: 0 0 1px #fdf6e3;
-	min-width: 24px;
-}
-#workspaces button label {
-	font-size: 21px;
-	font-weight: 700;
-}
-#workspaces button.active {
-	color: #268bd2;
-	font-size: 23px;
-}
-#workspaces button.active label {
-	font-size: 23px;
-	font-weight: 700;
-}
-#workspaces button:hover {
-	box-shadow: inherit;
-	text-shadow: inherit;
-	background: transparent;
-	color: #fdf6e3;
+	min-width: 18px;
+	transition: all 0.2s ease;
 }
 
-/* Module colors */
-#pulseaudio { color: #268bd2; }
-#memory { color: #2aa198; }
-#cpu { color: #6c71c4; }
-#backlight { color: #cb4b16; }
-#battery { color: #859900; }
-#battery.critical:not(.charging) { color: #dc322f; }
-#disk { color: #b58900; }
+#workspaces button label {
+	font-size: 22px;
+	font-weight: 700;
+}
+
+#workspaces button.active {
+	color: @accent;
+	background: @bg;
+	box-shadow: inset 0 -2px 0 @accent;
+}
+
+#workspaces button.empty {
+	color: alpha(@fg_muted, 0.55);
+}
+
+#workspaces button:hover {
+	box-shadow: inset 0 -1px 0 @fg_dim;
+	color: @fg;
+	background: transparent;
+}
 
 #clock.1,
 #clock.3 {
-	color: #fdf6e3;
-	font-size: 13px;
+	color: @fg_dim;
 }
+
 #clock.2 {
-	color: #fdf6e3;
+	color: @fg;
 	font-size: 15px;
-	font-weight: bold;
+	font-weight: 700;
+}
+
+#pulseaudio,
+#backlight,
+#battery,
+#custom-jpower {
+	color: @accent;
+}
+
+#memory,
+#cpu,
+#disk {
+	color: @fg_dim;
+}
+
+#battery.critical:not(.charging) {
+	color: #ff8d57;
+	border-color: rgba(255, 141, 87, 0.4);
 }
 
 #tray {
-	padding: 0 8px;
+	padding: 0 10px;
 }
+
 #tray > .passive {
 	-gtk-icon-effect: dim;
 }
+
 #tray > .needs-attention {
 	-gtk-icon-effect: highlight;
 }
 
 #idle_inhibitor {
-	color: #fdf6e3;
-	font-size: 16px;
-	padding: 0 12px;
+	color: @fg;
+	font-size: 15px;
 }
-#idle_inhibitor label {
-	margin-left: 0;
+
+#idle_inhibitor.activated {
+	color: @accent;
 }
-#idle_inhibitor.activated { color: #b58900; }
-#idle_inhibitor.deactivated { color: #888888; }
-#custom-notification { color: #fdf6e3; }
+
+#idle_inhibitor.deactivated {
+	color: @fg_muted;
+}
+
+#custom-notification {
+	color: @fg;
+}
+
 #custom-jpower {
-	color: #dc322f;
-	font-size: 20px;
+	font-size: 18px;
 	padding: 0 16px;
 }
 
 tooltip {
-	background: #1a1a1a;
-	color: #fdf6e3;
-	border-radius: 10px;
-	border: 1px solid #268bd2;
-	font-size: 13px;
+	background: @bg_alt;
+	color: @fg;
+	border-radius: 0;
+	border: 1px solid @accent;
+	font-size: 12px;
+}
+
+tooltip label {
+	padding: 2px;
 }
