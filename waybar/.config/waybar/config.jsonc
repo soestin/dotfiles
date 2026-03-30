@@ -3,7 +3,8 @@
 	"position": "top",
 
 	"modules-left": [
-		"hyprland/workspaces"
+		"hyprland/workspaces",
+		"idle_inhibitor"
 	],
 	"modules-center": [
 		"clock#1",
@@ -11,13 +12,10 @@
 		"clock#3"
 	],
 	"modules-right": [
-		"idle_inhibitor",
 		"pulseaudio",
-		"memory",
-		"cpu",
+		"custom/system_stats",
 		"backlight",
 		"battery",
-		"disk",
 		"tray",
 		"custom/notification",
 		"custom/jpower"
@@ -92,14 +90,12 @@
 		"on-click-right": "pavucontrol"
 	},
 
-	"memory": {
+	"custom/system_stats": {
+		"format": "{}",
+		"return-type": "json",
 		"interval": 5,
-		"format": "Mem {}%"
-	},
-
-	"cpu": {
-		"interval": 5,
-		"format": "CPU {usage:2}%"
+		"exec": "~/.config/waybar/scripts/system_stats.sh",
+		"tooltip": true
 	},
 
 	"backlight": {
@@ -118,12 +114,6 @@
 		"format-charging": " {capacity}%",
 		"format-plugged": " {capacity}%",
 		"format-icons": ["", "", "", "", ""]
-	},
-
-	"disk": {
-		"interval": 5,
-		"format": "Disk {percentage_used:2}%",
-		"path": "/"
 	},
 
 	"tray": {
@@ -154,8 +144,8 @@
 	"idle_inhibitor": {
 		"format": "{icon}",
 		"format-icons": {
-			"activated": "󰅶",
-			"deactivated": "󰅶"
+			"activated": "",
+			"deactivated": ""
 		},
 		"tooltip-format-activated": "Screen will stay awake",
 		"tooltip-format-deactivated": "Screen may sleep"
@@ -164,6 +154,6 @@
 	"custom/jpower": {
 		"format": "⏻",
 		"tooltip": false,
-		"on-click": "wleave -l ~/.config/wleave/layout.json -C ~/.config/wleave/style.css -x"
+		"on-click": "wleave -l ~/.config/wleave/layout.json -C ~/.config/wleave/style.css -x -b 3 -c 24 -r 24 -L 0 -R 0"
 	}
 }

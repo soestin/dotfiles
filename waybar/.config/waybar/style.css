@@ -33,11 +33,9 @@ window#waybar {
 #clock.2,
 #clock.3,
 #pulseaudio,
-#memory,
-#cpu,
+#custom-system_stats,
 #backlight,
 #battery,
-#disk,
 #tray,
 #idle_inhibitor,
 #custom-notification,
@@ -58,7 +56,7 @@ window#waybar {
 #workspaces button {
 	padding: 0 6px;
 	margin: 5px 4px;
-	color: @fg_muted;
+	color: @fg;
 	font-size: 22px;
 	font-weight: 700;
 	border-radius: 0;
@@ -106,9 +104,7 @@ window#waybar {
 	color: @accent;
 }
 
-#memory,
-#cpu,
-#disk {
+#custom-system_stats {
 	color: @fg_dim;
 }
 
