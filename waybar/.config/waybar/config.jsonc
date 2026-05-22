@@ -4,7 +4,8 @@
 
 	"modules-left": [
 		"hyprland/workspaces",
-		"idle_inhibitor"
+		"idle_inhibitor",
+		"custom/songdetail"
 	],
 	"modules-center": [
 		"clock#1",
@@ -60,7 +61,7 @@
 		"tooltip": false
 	},
 	"clock#3": {
-		"format": "{:%m-%d-%Y}",
+		"format": "{:%d-%m-%Y}",
 		"tooltip-format": "<tt>{calendar}</tt>",
 		"calendar": {
 			"mode": "month",
@@ -98,6 +99,18 @@
 		"tooltip": true
 	},
 
+	"custom/songdetail": {
+		"format": "{}",
+		"interval": 2,
+		"exec-if": "command -v playerctl",
+		"exec": "~/.config/waybar/scripts/songdetail.sh",
+		"max-length": 40,
+		"tooltip": false,
+		"on-click": "playerctl --player=spotify play-pause",
+		"on-scroll-up": "playerctl --player=spotify next",
+		"on-scroll-down": "playerctl --player=spotify previous"
+	},
+
 	"backlight": {
 		"format": "{icon} {percent}%",
 		"format-icons": ["󰃞", "󰃟", "󰃠"],
@@ -111,9 +124,9 @@
 			"critical": 15
 		},
 		"format": "{icon} {capacity}%",
-		"format-charging": " {capacity}%",
-		"format-plugged": " {capacity}%",
-		"format-icons": ["", "", "", "", ""]
+		"format-charging": "󰂄 {capacity}%",
+		"format-plugged": "󰚥 {capacity}%",
+		"format-icons": ["󰂎", "󰁺", "󰁼", "󰁾", "󰂀"]
 	},
 
 	"tray": {

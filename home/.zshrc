@@ -22,3 +22,23 @@ export FZF_BASE=/usr/share/fzf
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# git add, commit, and push: gacp "commit message"
+gacp() {
+  if [[ $# -eq 0 ]]; then
+    echo 'Usage: gacp "commit message"'
+    return 1
+  fi
+
+  git add . && git commit -m "$*" && git push
+}
+
+
+. "$HOME/.local/bin/env"
+
+# bun completions
+[ -s "/home/justin/.bun/_bun" ] && source "/home/justin/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
