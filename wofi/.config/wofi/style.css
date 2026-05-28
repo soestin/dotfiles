@@ -1,64 +1,70 @@
 * {
     font-family: "JetBrains Mono Nerd Font", monospace;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 window {
-    margin: 0px;
-    border: 2px solid #268bd2;
-    border-radius: 10px;
-    background-color: #1a1a1a;
-}
-
-#input {
-    margin: 8px;
-    padding: 6px 10px;
-    border: none;
-    border-radius: 7px;
-    color: #fdf6e3;
-    background-color: #292b2e;
-    outline: none;
-}
-
-#input placeholder {
-    color: #555555;
+    margin: 0;
+    border: 1px solid #f97316;
+    border-radius: 0;
+    background-color: #151515;
+    color: #fafafa;
 }
 
 #outer-box {
-    margin: 0px;
-    padding: 4px;
+    margin: 0;
+    padding: 10px;
     border: none;
-    background-color: #1a1a1a;
-    border-radius: 10px;
+    background-color: #151515;
+}
+
+#input {
+    margin: 0 0 10px;
+    padding: 10px 12px;
+    border: 1px solid #2a2a2a;
+    border-radius: 0;
+    color: #fafafa;
+    background-color: #0d0d0d;
+    outline: none;
+}
+
+#input:focus {
+    border-color: #f97316;
+}
+
+#input placeholder {
+    color: #666666;
 }
 
 #inner-box {
-    margin: 0px;
+    margin: 0;
     border: none;
-    background-color: #1a1a1a;
+    background-color: #151515;
 }
 
 #scroll {
-    margin: 0px 4px 4px 4px;
+    margin: 0;
     border: none;
-}
-
-#text {
-    margin: 2px 6px;
-    border: none;
-    color: #fdf6e3;
 }
 
 #entry {
-    border-radius: 7px;
-    padding: 2px;
+    padding: 8px 10px;
+    border: 1px solid transparent;
+    border-radius: 0;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+#text {
+    margin: 0;
+    border: none;
+    color: #a0a0a0;
 }
 
 #entry:selected {
-    background-color: #292b2e;
-    border-left: 3px solid #268bd2;
+    background-color: #0d0d0d;
+    border-color: #f97316;
 }
 
 #entry:selected #text {
-    color: #268bd2;
+    color: #fafafa;
 }

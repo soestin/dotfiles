@@ -3,7 +3,9 @@
 	"position": "top",
 
 	"modules-left": [
-		"hyprland/workspaces"
+		"hyprland/workspaces",
+		"idle_inhibitor",
+		"custom/songdetail"
 	],
 	"modules-center": [
 		"clock#1",
@@ -11,13 +13,11 @@
 		"clock#3"
 	],
 	"modules-right": [
-		"idle_inhibitor",
 		"pulseaudio",
-		"memory",
-		"cpu",
+		"custom/system_stats",
+		"network",
 		"backlight",
 		"battery",
-		"disk",
 		"tray",
 		"custom/notification",
 		"custom/jpower"
@@ -44,9 +44,9 @@
 		"disable-scroll": true,
 		"format": "{icon}",
 		"format-icons": {
-			"active": "●",
-			"default": "○",
-			"empty": "○"
+			"active": "•",
+			"default": "·",
+			"empty": "·"
 		},
 		"persistent-workspaces": {
 			"*": 5
@@ -62,7 +62,7 @@
 		"tooltip": false
 	},
 	"clock#3": {
-		"format": "{:%m-%d-%Y}",
+		"format": "{:%d-%m-%Y}",
 		"tooltip-format": "<tt>{calendar}</tt>",
 		"calendar": {
 			"mode": "month",
@@ -74,27 +74,57 @@
 		}
 	},
 
+	"network": {
+		"format-wifi": "{icon} {signalStrength}%",
+		"format-ethernet": "󰈀 {ipaddr}",
+		"format-linked": "󰈀 linked",
+		"format-disconnected": "󰖪 offline",
+		"format-disabled": "󰖪 disabled",
+		"format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+		"tooltip-format-wifi": "{ifname}: {essid}\nSignal: {signalStrength}%\nIP: {ipaddr}",
+		"tooltip-format-ethernet": "{ifname}\nIP: {ipaddr}",
+		"tooltip-format-disconnected": "Disconnected",
+		"on-click": "networkmanager_dmenu",
+		"on-click-right": "nm-connection-editor",
+		"on-click-middle": "kitty nmtui"
+	},
+
 	"pulseaudio": {
 		"format": "{icon} {volume:2}%",
 		"format-bluetooth": "{icon}  {volume}%",
-		"format-muted": "MUTE",
+		"format-muted": "󰝟 mute",
 		"format-icons": {
-			"headphones": "",
-			"default": ["", ""]
+			"headphones": "󰋋",
+			"hands-free": "󰋎",
+			"headset": "󰋎",
+			"phone": "󰏲",
+			"portable": "󰏲",
+			"car": "󰄋",
+			"default": ["󰕿", "󰖀", "󰕾"]
 		},
 		"scroll-step": 5,
 		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
 		"on-click-right": "pavucontrol"
 	},
 
-	"memory": {
+	"custom/system_stats": {
+		"format": "{}",
+		"return-type": "json",
 		"interval": 5,
-		"format": "Mem {}%"
+		"exec": "~/.config/waybar/scripts/system_stats.sh",
+		"tooltip": true
 	},
 
-	"cpu": {
-		"interval": 5,
-		"format": "CPU {usage:2}%"
+	"custom/songdetail": {
+		"format": "{}",
+		"interval": 2,
+		"exec-if": "command -v playerctl",
+		"exec": "~/.config/waybar/scripts/songdetail.sh",
+		"max-length": 40,
+		"tooltip": false,
+		"on-click": "playerctl --player=spotify play-pause",
+		"on-scroll-up": "playerctl --player=spotify next",
+		"on-scroll-down": "playerctl --player=spotify previous"
 	},
 
 	"backlight": {
@@ -110,15 +140,9 @@
 			"critical": 15
 		},
 		"format": "{icon} {capacity}%",
-		"format-charging": " {capacity}%",
-		"format-plugged": " {capacity}%",
-		"format-icons": ["", "", "", "", ""]
-	},
-
-	"disk": {
-		"interval": 5,
-		"format": "Disk {percentage_used:2}%",
-		"path": "/"
+		"format-charging": "󰂄 {capacity}%",
+		"format-plugged": "󰚥 {capacity}%",
+		"format-icons": ["󰂎", "󰁺", "󰁼", "󰁾", "󰂀"]
 	},
 
 	"tray": {
@@ -149,8 +173,8 @@
 	"idle_inhibitor": {
 		"format": "{icon}",
 		"format-icons": {
-			"activated": "󰅶",
-			"deactivated": "󰅶"
+			"activated": "",
+			"deactivated": ""
 		},
 		"tooltip-format-activated": "Screen will stay awake",
 		"tooltip-format-deactivated": "Screen may sleep"
@@ -159,6 +183,6 @@
 	"custom/jpower": {
 		"format": "⏻",
 		"tooltip": false,
-		"on-click": "wleave -l ~/.config/wleave/layout.json -C ~/.config/wleave/style.css -x"
+		"on-click": "wleave -l ~/.config/wleave/layout.json -C ~/.config/wleave/style.css -x -b 3 -c 24 -r 24 -L 0 -R 0"
 	}
 }

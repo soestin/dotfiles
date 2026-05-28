@@ -1,57 +1,49 @@
 window {
-    background-color: rgba(12, 12, 12, 0.8);
+    background-color: rgba(13, 13, 13, 0.88);
 }
 
 button {
-    color: var(--view-fg-color, #ececec);
-    background-color: #1d1d1d;
-    border: none;
-    padding: 10px;
+    color: var(--view-fg-color, #fafafa);
+    background-color: #151515;
+    border: 1px solid #2a2a2a;
+    border-radius: 0;
+    padding: 14px 18px;
+    transition: all 0.18s ease;
 }
 
 button label.action-name {
     font-size: 24px;
+    font-weight: 700;
 }
 
 button label.keybind {
-    font-size: 20px;
-    font-family: monospace;
+    font-size: 18px;
+    font-family: "JetBrains Mono Nerd Font", monospace;
+    color: #666666;
 }
 
-button:hover label.keybind, button:focus label.keybind {
+button:hover label.keybind,
+button:focus label.keybind {
+    color: #f97316;
     opacity: 1;
 }
 
 button:focus,
 button:hover {
-    background-color: #2c2c2c;
+    background-color: #0d0d0d;
+    border-color: #f97316;
 }
 
 button:active {
-    color: #101010;
-    background-color: #8cb4ff;
+    color: #0d0d0d;
+    background-color: #f97316;
 }
 
-button#shutdown {
-    --view-fg-color: #ff8d8d;
-}
-
-button#hibernate {
-    --view-fg-color: #a8c0ff;
-}
-
-button#reboot {
-    --view-fg-color: #84ffaa;
-}
-
-button#lock {
-    --view-fg-color: #ffe8b6;
-}
-
-button#logout {
-    --view-fg-color: #ffcca8;
-}
-
+button#shutdown,
+button#hibernate,
+button#reboot,
+button#lock,
+button#logout,
 button#suspend {
-    --view-fg-color: #caaff9;
+    --view-fg-color: #fafafa;
 }
