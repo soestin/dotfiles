@@ -15,6 +15,7 @@
 	"modules-right": [
 		"pulseaudio",
 		"custom/system_stats",
+		"network",
 		"backlight",
 		"battery",
 		"tray",
@@ -71,6 +72,21 @@
 				"today": "<b><u>{}</u></b>"
 			}
 		}
+	},
+
+	"network": {
+		"format-wifi": "{icon} {signalStrength}%",
+		"format-ethernet": "󰈀 {ipaddr}",
+		"format-linked": "󰈀 linked",
+		"format-disconnected": "󰖪 offline",
+		"format-disabled": "󰖪 disabled",
+		"format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+		"tooltip-format-wifi": "{ifname}: {essid}\nSignal: {signalStrength}%\nIP: {ipaddr}",
+		"tooltip-format-ethernet": "{ifname}\nIP: {ipaddr}",
+		"tooltip-format-disconnected": "Disconnected",
+		"on-click": "networkmanager_dmenu",
+		"on-click-right": "nm-connection-editor",
+		"on-click-middle": "kitty nmtui"
 	},
 
 	"pulseaudio": {

@@ -32,6 +32,7 @@ window#waybar {
 #clock.1,
 #clock.2,
 #clock.3,
+#network,
 #pulseaudio,
 #custom-system_stats,
 #custom-songdetail,
@@ -98,11 +99,17 @@ window#waybar {
 	font-weight: 700;
 }
 
+#network,
 #pulseaudio,
 #backlight,
 #battery,
 #custom-jpower {
 	color: @accent;
+}
+
+#network.disconnected,
+#network.disabled {
+	color: @fg_muted;
 }
 
 #custom-system_stats {
