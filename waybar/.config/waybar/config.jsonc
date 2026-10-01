@@ -15,6 +15,7 @@
 	"modules-right": [
 		"pulseaudio",
 		"custom/system_stats",
+		"custom/codex_usage",
 		"network",
 		"backlight",
 		"battery",
@@ -112,6 +113,14 @@
 		"return-type": "json",
 		"interval": 5,
 		"exec": "~/.config/waybar/scripts/system_stats.sh",
+		"tooltip": true
+	},
+
+	"custom/codex_usage": {
+		"format": "{}",
+		"return-type": "json",
+		"interval": 60,
+		"exec": "~/.config/waybar/scripts/codex_usage.sh",
 		"tooltip": true
 	},
 

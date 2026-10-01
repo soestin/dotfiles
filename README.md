@@ -69,7 +69,10 @@ QT_QUICK_BACKEND=software sddm-greeter-qt6 --test-mode --theme /usr/share/sddm/t
 | `SUPER + W` | Toggle floating |
 | `SUPER + L` | Lock screen |
 | `SUPER + V` | Clipboard history |
-| `SUPER + G` | Toggle window transparency |
+| `SUPER + O` | Toggle window transparency |
+| `SUPER + G` | Toggle tab group for the active window |
+| `ALT + Tab` | Next window in tab group |
+| `SUPER + SHIFT + G` | Remove active window from tab group |
 | `SUPER + /` | Keybinds hint |
 | `SUPER + P` | Screenshot region → satty |
 | `SUPER + CTRL + P` | Screenshot region (frozen) → satty |

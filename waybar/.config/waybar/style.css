@@ -35,6 +35,7 @@ window#waybar {
 #network,
 #pulseaudio,
 #custom-system_stats,
+#custom-codex_usage,
 #custom-songdetail,
 #backlight,
 #battery,
@@ -114,6 +115,19 @@ window#waybar {
 
 #custom-system_stats {
 	color: @fg_dim;
+}
+
+#custom-codex_usage {
+	color: @fg_dim;
+}
+
+#custom-codex_usage.warning {
+	color: @accent;
+}
+
+#custom-codex_usage.critical {
+	color: #ff8d57;
+	border-color: rgba(255, 141, 87, 0.4);
 }
 
 #custom-songdetail {
