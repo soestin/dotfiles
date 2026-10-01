@@ -34,7 +34,6 @@ gacp() {
 }
 
 
-. "$HOME/.local/bin/env"
 
 # bun completions
 [ -s "/home/justin/.bun/_bun" ] && source "/home/justin/.bun/_bun"
@@ -42,3 +41,7 @@ gacp() {
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# >>> Codex installer >>>
+export PATH="/home/justin/.local/bin:$PATH"
+# <<< Codex installer <<<
