@@ -1,70 +1,53 @@
-* {
-    font-family: "JetBrains Mono Nerd Font", monospace;
-    font-size: 14px;
-}
-
 window {
-    margin: 0;
-    border: 1px solid #f97316;
-    border-radius: 0;
-    background-color: #151515;
-    color: #fafafa;
-}
-
-#outer-box {
-    margin: 0;
-    padding: 10px;
-    border: none;
-    background-color: #151515;
+margin: 0px;
+border: 1px solid #88c0d0;
+background-color: #2e3440;
 }
 
 #input {
-    margin: 0 0 10px;
-    padding: 10px 12px;
-    border: 1px solid #2a2a2a;
-    border-radius: 0;
-    color: #fafafa;
-    background-color: #0d0d0d;
-    outline: none;
-}
-
-#input:focus {
-    border-color: #f97316;
-}
-
-#input placeholder {
-    color: #666666;
+margin: 5px;
+border: none;
+color: #d8dee9;
+background-color: #3b4252;
 }
 
 #inner-box {
-    margin: 0;
-    border: none;
-    background-color: #151515;
+margin: 5px;
+border: none;
+background-color: #2e3440;
+}
+
+#outer-box {
+margin: 5px;
+border: none;
+background-color: #2e3440;
 }
 
 #scroll {
-    margin: 0;
-    border: none;
-}
-
-#entry {
-    padding: 8px 10px;
-    border: 1px solid transparent;
-    border-radius: 0;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+margin: 0px;
+border: none;
 }
 
 #text {
-    margin: 0;
-    border: none;
-    color: #a0a0a0;
+margin: 5px;
+border: none;
+color: #d8dee9;
 }
 
-#entry:selected {
-    background-color: #0d0d0d;
-    border-color: #f97316;
+/* Override inherited GTK selection colors on the row and its children. */
+#entry:selected,
+#entry:selected * {
+background-color: #3b4252;
+background-image: none;
+color: #eceff4;
 }
 
-#entry:selected #text {
-    color: #fafafa;
+#text:selected {
+background-color: transparent;
+color: #eceff4;
+}
+
+#input:focus {
+border-color: #88c0d0;
+box-shadow: none;
 }

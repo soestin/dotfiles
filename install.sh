@@ -110,7 +110,7 @@ if ask "Install required packages?"; then
         wl-clipboard \
         brightnessctl \
         playerctl \
-        pavucontrol \
+        pwvucontrol \
         wireplumber \
         networkmanager \
         network-manager-applet \
@@ -125,11 +125,17 @@ if ask "Install required packages?"; then
         zsh-history-substring-search \
         pkgfile \
         fzf \
-        networkmanager-dmenu \
         grim \
         slurp \
         satty \
-        jq
+        jq \
+        python \
+        gcc \
+        pkgconf \
+        git \
+        meson \
+        ninja \
+        glib2-devel
 
     # AUR packages
     if ! ensure_yay; then
@@ -140,6 +146,15 @@ if ask "Install required packages?"; then
         wleave
 fi
 
+# Optional AirPods 4 ANC controls and battery daemon.
+if ask "Install AirPods controls (sets Apple's Bluetooth DeviceID)?"; then
+    ensure_yay
+    yay -S --needed airpods-tui-bin
+    systemctl --user daemon-reload
+    systemctl --user enable --now airpods-tui.service
+    echo "Restart Bluetooth and re-pair your AirPods if noise controls remain unavailable."
+fi
+
 # 2. Set Zsh as default shell
 if ask "Set Zsh as default shell?"; then
     chsh -s "$(which zsh)"
@@ -148,8 +163,9 @@ fi
 # 3. Stow dotfiles
 if ask "Stow dotfiles?"; then
     cd "$DOTFILES_DIR"
-    stow --adopt home hypr waybar wofi wleave fish fastfetch networkmanager-dmenu
+    stow --adopt home hypr waybar wofi wleave fish fastfetch
     git restore .
+    ~/.config/waybar/scripts/build-nm-waybar.sh
 fi
 
 # 4. Optional SilentSDDM install
@@ -162,6 +178,12 @@ if ask "Install SilentSDDM theme?"; then
     else
         echo "Failed to install SilentSDDM theme package." >&2
     fi
+fi
+
+# Persist Fn lock on ASUS laptops with driver support.
+if [[ -e /sys/module/asus_wmi/parameters/fnlock_default ]] && ask "Enable ASUS Fn lock at startup?"; then
+    sudo install -Dm644 "$DOTFILES_DIR/system/modprobe.d/asus-fnlock.conf" "/etc/modprobe.d/asus-fnlock.conf"
+    echo "ASUS Fn lock enabled for subsequent boots."
 fi
 
 echo "Done. Log out and back in for shell change to take effect."

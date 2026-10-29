@@ -1,0 +1,71 @@
+diff --git a/include/modules/sni/item.hpp b/include/modules/sni/item.hpp
+index 503ab63..2b338c2 100644
+--- a/include/modules/sni/item.hpp
++++ b/include/modules/sni/item.hpp
+@@ -87,6 +87,7 @@ class Item : public sigc::trackable {
+   // visibility of items with Status == Passive
+   bool show_passive_ = false;
+ 
++  std::string icon_color_;
+   const Bar& bar_;
+ 
+   Glib::RefPtr<Gio::DBus::Proxy> proxy_;
+diff --git a/src/modules/sni/host.cpp b/src/modules/sni/host.cpp
+index 54faa16..cfdc4b0 100644
+--- a/src/modules/sni/host.cpp
++++ b/src/modules/sni/host.cpp
+@@ -135,6 +135,19 @@ std::tuple<std::string, std::string> Host::getBusNameAndObjectPath(const std::st
+ void Host::addRegisteredItem(std::string service) {
+   std::string bus_name, object_path;
+   std::tie(bus_name, object_path) = getBusNameAndObjectPath(service);
++  // Filter before creating an Item so each named tray owns only its applets.
++  const auto matches = [&](const Json::Value& patterns) {
++    for (const auto& pattern : patterns) {
++      if (pattern.isString() && service.find(pattern.asString()) != std::string::npos) {
++        return true;
++      }
++    }
++    return false;
++  };
++  if (config_["include-items"].isArray() && !matches(config_["include-items"])) return;
++  if (config_["exclude-items"].isArray() && matches(config_["exclude-items"])) return;
++  spdlog::debug("Tray host {} accepted {}", object_path_, service);
++
+   auto it = std::find_if(items_.begin(), items_.end(), [&bus_name, &object_path](const auto& item) {
+     return bus_name == item->bus_name && object_path == item->object_path;
+   });
+diff --git a/src/modules/sni/item.cpp b/src/modules/sni/item.cpp
+index ef2543b..446f9d0 100644
+--- a/src/modules/sni/item.cpp
++++ b/src/modules/sni/item.cpp
+@@ -44,6 +44,7 @@ Item::Item(const std::string& bn, const std::string& op, const Json::Value& conf
+       effective_icon_size(0),
+       icon_theme(Gtk::IconTheme::create()),
+       bar_(bar) {
++  if (config["icon-color"].isString()) icon_color_ = config["icon-color"].asString();
+   if (config["icon-size"].isUInt()) {
+     icon_size = config["icon-size"].asUInt();
+   }
+@@ -376,6 +377,22 @@ void Item::updateImage() {
+     pixbuf = pixbuf->scale_simple(width, scaled_icon_size, Gdk::InterpType::INTERP_BILINEAR);
+   }
+ 
++  // Tint a copy: preserve the applet's changing icon shape and alpha channel.
++  Gdk::RGBA color;
++  if (!icon_color_.empty() && color.set(icon_color_)) {
++    pixbuf = pixbuf->copy();
++    auto pixels = pixbuf->get_pixels();
++    const auto channels = pixbuf->get_n_channels();
++    for (int y = 0; y < pixbuf->get_height(); ++y) {
++      for (int x = 0; x < pixbuf->get_width(); ++x) {
++        auto pixel = pixels + y * pixbuf->get_rowstride() + x * channels;
++        pixel[0] = static_cast<guchar>(color.get_red() * 255);
++        pixel[1] = static_cast<guchar>(color.get_green() * 255);
++        pixel[2] = static_cast<guchar>(color.get_blue() * 255);
++      }
++    }
++  }
++
+   auto surface =
+       Gdk::Cairo::create_surface_from_pixbuf(pixbuf, image.get_scale_factor(), image.get_window());
+   image.set(surface);

@@ -4,8 +4,7 @@
 
 	"modules-left": [
 		"hyprland/workspaces",
-		"idle_inhibitor",
-		"custom/songdetail"
+		"idle_inhibitor"
 	],
 	"modules-center": [
 		"clock#1",
@@ -14,10 +13,11 @@
 	],
 	"modules-right": [
 		"pulseaudio",
+		"custom/airpods",
 		"custom/system_stats",
 		"custom/codex_usage",
-		"network",
 		"backlight",
+		"tray#wifi",
 		"battery",
 		"tray",
 		"custom/notification",
@@ -75,20 +75,6 @@
 		}
 	},
 
-	"network": {
-		"format-wifi": "{icon} {signalStrength}%",
-		"format-ethernet": "󰈀 {ipaddr}",
-		"format-linked": "󰈀 linked",
-		"format-disconnected": "󰖪 offline",
-		"format-disabled": "󰖪 disabled",
-		"format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-		"tooltip-format-wifi": "{ifname}: {essid}\nSignal: {signalStrength}%\nIP: {ipaddr}",
-		"tooltip-format-ethernet": "{ifname}\nIP: {ipaddr}",
-		"tooltip-format-disconnected": "Disconnected",
-		"on-click": "networkmanager_dmenu",
-		"on-click-right": "nm-connection-editor",
-		"on-click-middle": "kitty nmtui"
-	},
 
 	"pulseaudio": {
 		"format": "{icon} {volume:2}%",
@@ -105,7 +91,17 @@
 		},
 		"scroll-step": 5,
 		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-		"on-click-right": "pavucontrol"
+		"on-click-right": "pwvucontrol"
+	},
+
+	"custom/airpods": {
+		"exec": "python3 ~/.config/waybar/scripts/airpods.py watch",
+		"return-type": "json",
+		"format": "{}",
+		"escape": true,
+		"tooltip": true,
+		"on-click": "python3 ~/.config/waybar/scripts/airpods.py menu",
+		"on-click-right": "python3 ~/.config/waybar/scripts/airpods.py settings"
 	},
 
 	"custom/system_stats": {
@@ -124,17 +120,6 @@
 		"tooltip": true
 	},
 
-	"custom/songdetail": {
-		"format": "{}",
-		"interval": 2,
-		"exec-if": "command -v playerctl",
-		"exec": "~/.config/waybar/scripts/songdetail.sh",
-		"max-length": 40,
-		"tooltip": false,
-		"on-click": "playerctl --player=spotify play-pause",
-		"on-scroll-up": "playerctl --player=spotify next",
-		"on-scroll-down": "playerctl --player=spotify previous"
-	},
 
 	"backlight": {
 		"format": "{icon} {percent}%",
@@ -154,8 +139,16 @@
 		"format-icons": ["󰂎", "󰁺", "󰁼", "󰁾", "󰂀"]
 	},
 
+	// Dedicated host for the real nm-applet; requires scripts/start-waybar.sh.
+	"tray#wifi": {
+		"icon-size": 20,
+		"include-items": ["/org/ayatana/NotificationItem/nm_applet"],
+		"icon-color": "#f97316"
+	},
+
 	"tray": {
-		"icon-size": 20
+		"icon-size": 20,
+		"exclude-items": ["/org/ayatana/NotificationItem/nm_applet"]
 	},
 
 	"custom/notification": {

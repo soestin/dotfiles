@@ -1,23 +1,16 @@
 #!/bin/bash
+set -o pipefail
 
-# Parse keybinds from hyprland.conf and show in wofi with search
-
-grep "^bind" ~/.config/hypr/hyprland.conf | \
-    sed 's/bind[a-z]* = //' | \
-    awk -F',' '{
-        mod = $1; key = $2; action = $3; arg = $4;
-        gsub(/^ +| +$/, "", mod);
-        gsub(/^ +| +$/, "", key);
-        gsub(/^ +| +$/, "", action);
-        gsub(/^ +| +$/, "", arg);
-        if (arg != "")
-            printf "%-30s %-15s %s %s\n", mod " + " key, "→", action, arg;
-        else
-            printf "%-30s %-15s %s\n", mod " + " key, "→", action;
-    }' | \
-    wofi --show dmenu \
-         --prompt "Keybinds" \
-         --width 800 \
-         --height 500 \
-         --no-actions \
-         --insensitive
+# Read registered keybinds so this works with Lua configs and included modules.
+hyprctl -j binds | jq -r '
+    def modifiers:
+        . as $mask |
+        [[1, "SHIFT"], [4, "CTRL"], [8, "ALT"], [64, "SUPER"]]
+        | map(select(($mask / .[0] | floor % 2) == 1) | .[1])
+        | join(" + ");
+    .[] |
+    ((.modmask | modifiers) as $mod |
+        (if $mod == "" then .key else $mod + " + " + .key end)) +
+    " → " + .dispatcher +
+    (if .arg == "" then "" else " " + .arg end)
+' | wofi --show dmenu          --prompt "Keybinds"          --width 800          --height 500          --no-actions          --insensitive

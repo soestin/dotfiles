@@ -26,6 +26,9 @@ The script will:
 
 Log out and back in after for the shell change to take effect.
 
+On supported ASUS laptops, the installer also offers to enable Fn lock at boot
+using `system/modprobe.d/asus-fnlock.conf`. Reboot after installing the setting.
+
 ## Packages managed
 
 | Package | Contents |
@@ -37,7 +40,42 @@ Log out and back in after for the shell change to take effect.
 | `wleave` | Logout menu |
 | `fish` | Fish shell config |
 | `fastfetch` | System info config |
-| `networkmanager-dmenu` | Network manager config |
+
+## AirPods 4 ANC
+
+The Waybar AirPods widget uses [airpods-tui](https://github.com/annoyedmilk/airpods-tui)
+for battery status and Apple's noise-control protocol. Left-click opens a Wofi menu
+for Noise Cancellation, Transparency, Adaptive, and Conversation Awareness.
+Off appears when Off Listening Mode is enabled in the full settings. Right-click
+opens all settings in a floating terminal, including ear detection and stem controls.
+The bar shows separate left and right earbud batteries and the mode reported by the device;
+hover for individual batteries. The case value is the last reported reading.
+Only connected AirPods 4 ANC devices are displayed; the widget is hidden otherwise.
+
+The Copilot key (Super+Shift+F23) connects your paired AirPods when disconnected. When connected, it toggles
+ANC and Transparency (Adaptive or Off switches to ANC). Shift+F11 still toggles
+fullscreen. The device address is configured as `AIRPODS_MAC` in the widget script.
+
+`install.sh` offers the backend installation, or set it up separately:
+
+```bash
+yay -S --needed airpods-tui-bin
+systemctl --user daemon-reload
+systemctl --user enable --now airpods-tui.service
+sudo systemctl restart bluetooth
+```
+
+The AUR package sets `DeviceID = bluetooth:004C:0000:0000` in
+`/etc/bluetooth/main.conf` so the AirPods accept Apple's control protocol.
+Restarting Bluetooth disconnects current Bluetooth devices. If already paired
+AirPods refuse controls, forget and re-pair them after the change. On AirPods 4,
+open the case and double-tap its front until the light flashes white.
+Do not run LibrePods alongside this daemon; use one AirPods backend at a time.
+
+The widget reconnects automatically when the daemon starts. If unavailable, check
+`systemctl --user status airpods-tui` and `journalctl --user -u airpods-tui`.
+The custom menu uses the daemon's internal JSON socket protocol, verified against
+upstream on 2026-10-01; changes to that protocol may require updating `airpods.py`.
 
 ## SilentSDDM
 
@@ -82,3 +120,17 @@ QT_QUICK_BACKEND=software sddm-greeter-qt6 --test-mode --theme /usr/share/sddm/t
 | `SUPER + 1-5` | Switch workspace |
 | `SUPER + SHIFT + 1-5` | Move window to workspace |
 | `SUPER + arrows` | Move focus |
+
+### Hyprland Lua configuration
+
+Hyprland 0.55+ loads `~/.config/hypr/hyprland.lua`. The previous configs are
+preserved as `*.conf.pre-lua` backups, including local changes made before migration.
+Hyprlock, Hypridle, and Hyprpaper still use their own `.conf` files.
+
+The main config keeps the preferred-mode monitor fallback at scale 1.2.
+`monitors.lua` contains the saved nwg-displays layout and `workspaces.lua` is
+currently empty. Uncomment their `require` lines in `hyprland.lua` to use them.
+
+Validate with `Hyprland --verify-config -c ~/.config/hypr/hyprland.lua`.
+Log out and back in once after migration so Hyprland selects the Lua config;
+later Lua edits can be applied with `hyprctl reload`.

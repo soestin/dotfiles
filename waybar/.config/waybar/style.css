@@ -32,11 +32,10 @@ window#waybar {
 #clock.1,
 #clock.2,
 #clock.3,
-#network,
 #pulseaudio,
+#custom-airpods,
 #custom-system_stats,
 #custom-codex_usage,
-#custom-songdetail,
 #backlight,
 #battery,
 #tray,
@@ -100,16 +99,17 @@ window#waybar {
 	font-weight: 700;
 }
 
-#network,
 #pulseaudio,
+#custom-airpods,
 #backlight,
 #battery,
 #custom-jpower {
 	color: @accent;
 }
 
-#network.disconnected,
-#network.disabled {
+#custom-airpods.nearby,
+#custom-airpods.unavailable,
+#custom-airpods.disconnected {
 	color: @fg_muted;
 }
 
@@ -128,10 +128,6 @@ window#waybar {
 #custom-codex_usage.critical {
 	color: #ff8d57;
 	border-color: rgba(255, 141, 87, 0.4);
-}
-
-#custom-songdetail {
-	color: @fg;
 }
 
 #battery.critical:not(.charging) {
@@ -153,7 +149,7 @@ window#waybar {
 
 #idle_inhibitor {
 	color: @fg;
-	font-size: 15px;
+	font-size: 35px;
 }
 
 #idle_inhibitor.activated {
